@@ -1,0 +1,199 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "API LootBox",
+    "version": "1.0.0",
+    "description": "API про подарки",
+    "contact": {
+      "Elbrus Bootcamp": "Vladimir",
+      "url": "https://github.com/Elbrus-Bootcamp"
+    }
+  },
+  "servers": [
+    { "url": "http://localhost:3000/api", "description": "Локально работающий сервер" }
+  ],
+  "components": {
+    "schemas": {
+      "LootBox": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "price": {
+            "type": "integer"
+          },
+          "description": {
+            "type": "string"
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      },
+      "LootBoxForm": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "price": {
+            "type": "integer"
+          },
+          "description": {
+            "type": "string"
+          }
+        }
+      },
+      "ServerError": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+  "tags": [{ "name": "LootBoxes", "description": "API про подарки" }],
+  "paths": {
+    "/lootboxes": {
+      "description": "Обращение к подаркам",
+      "get": {
+        "tags": ["lootboxes"],
+        "description": "Получение всех подарков",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LootBox"
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["lootboxes"],
+        "description": "Создание нового подарка",
+        "requestBody": {
+          "description": "Создание нового подарка",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LootBoxForm"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Успешное создание подарка",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LootBox"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lootboxes/{id}": {
+      "description": "Обращение к конкретному подарку",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "ID подарка",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "delete": {
+        "tags": ["lootboxes"],
+        "description": "Удаление слова",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lootboxes/{id}/buy": {
+      "description": "Обращение к конкретному подарку",
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "ID подарка",
+          "required": true,
+          "schema": {
+            "type": "integer",
+            "format": "int32"
+          }
+        }
+      ],
+      "patch": {
+        "tags": ["lootboxes"],
+        "description": "Покупка подарка",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Ошибка сервера",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ServerError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
