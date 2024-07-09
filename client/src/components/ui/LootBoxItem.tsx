@@ -3,7 +3,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import React from 'react';
 import type { LootBoxType } from '../../types/lootBox';
-import { buttonStyle, cardStyle, cardTextStyle, deleteButtonStyle } from '../styles';
+import { buttonStyle, cardStyle, cardTextStyle } from '../styles';
 
 type LootBoxItemProps = {
   lootBox: LootBoxType;
@@ -25,31 +25,14 @@ export default function LootBoxItem({ lootBox, deleteHandler }: LootBoxItemProps
         <Typography variant="h5" sx={cardTextStyle}>
           {lootBox.name}
         </Typography>
-        {lootBox.available ? (
-          <>
-            <Typography variant="h1" sx={cardTextStyle}>
-              ?
-            </Typography>
-            <Button variant="outlined" sx={buttonStyle}>
-              Купить за {lootBox.price}
-            </Button>
-          </>
-        ) : (
-          <>
-            <Typography variant="button" sx={cardTextStyle}>
-              {lootBox.description}
-            </Typography>
-            {deleteHandler ? (
-              <Button variant="outlined" sx={deleteButtonStyle}>
-                Удалить
-              </Button>
-            ) : (
-              <Button variant="outlined" disabled>
-                Не доступно
-              </Button>
-            )}
-          </>
-        )}
+        <>
+          <Typography variant="h1" sx={cardTextStyle}>
+            ?
+          </Typography>
+          <Button variant="outlined" sx={buttonStyle}>
+            Купить за {lootBox.price}
+          </Button>
+        </>
       </Box>
     </Paper>
   );
